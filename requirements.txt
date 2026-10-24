@@ -1,0 +1,6 @@
+# Core dependencies for LLMForge
+# Note: LLMForge is built to run with ZERO mandatory external dependencies (pure Python standard library),
+# but installing these packages provides enhanced network resilience and optional rich terminal styling.
+requests>=2.31.0
+python-dotenv>=1.0.0
+rich>=13.7.0

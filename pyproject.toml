@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "llmforge"
+version = "1.0.0"
+authors = [
+  { name="Daniel Kill", email="daniel@danielkill.online" },
+]
+description = "Terminal Foundry for OpenRouter Free-Tier LLMs — Interactive chat, model arena, and live quota inspector."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Environment :: Console",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/daniel-kill/LLMForge"
+"Bug Tracker" = "https://github.com/daniel-kill/LLMForge/issues"
+
+[project.scripts]
+llmforge = "llmforge.cli:main"
