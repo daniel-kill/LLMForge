@@ -1,5 +1,5 @@
 """
-LLMForge — OpenRouter Terminal Foundry for Free-Tier Models.
+LLMForge — Terminal Foundry for OpenRouter Free-Tier & Groq LPU Inference.
 Author: Daniel Kill <daniel@danielkill.online>
 License: MIT
 """
@@ -16,5 +16,5 @@ if sys.platform == "win32":
     except Exception:
         pass
 
-__version__ = "1.0.0"
+__version__ = "1.1.0"
 __author__ = "Daniel Kill"

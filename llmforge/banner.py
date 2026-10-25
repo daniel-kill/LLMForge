@@ -1,5 +1,6 @@
 """
 Terminal styling, ANSI colors, ASCII banner, and layout formatting for LLMForge.
+Supports dual-provider indicators: OpenRouter Free Tier & Groq LPU Inference.
 """
 
 import os
@@ -34,7 +35,7 @@ ASCII_LOGO = f"""{CRIMSON}{BOLD}
  | |___| |___ | |  | |  _| (_) | | | (_| |  __/  
  |_____|_____||_|  |_|_|  \\___/|_|  \\__, |\\___|  
                                     |___/        {RESET}
-{AMBER}{BOLD}  ⚒  OpenRouter Free-Tier Terminal Foundry  ⚒{RESET}
+{AMBER}{BOLD}  ⚒  OpenRouter Free-Tier & Groq LPU Foundry  ⚒{RESET}
 {GRAY}  Maintained by Daniel Kill <daniel@danielkill.online>{RESET}
 """
 
@@ -45,24 +46,40 @@ def clear_screen() -> None:
     else:
         os.system('clear')
 
-def print_banner(quota_info: dict | None = None, current_model: str = "recursive/flint-v1.0:free") -> None:
-    """Print the main application banner with quota stats."""
+def print_banner(
+    quota_info: dict | None = None,
+    current_model: str = "recursive/flint-v1.0:free",
+    provider: str = "openrouter"
+) -> None:
+    """Print the main application banner with provider & status indicators."""
     print(ASCII_LOGO)
     
     # Status Bar
     status_parts = []
+    
+    # Provider badge
+    if provider.lower() == "groq":
+        status_parts.append(f"{GOLD}{BOLD}[⚡ Groq LPU]{RESET}")
+    else:
+        status_parts.append(f"{BLUE}{BOLD}[🌐 OpenRouter]{RESET}")
+
+    # Model name
     status_parts.append(f"{CYAN}Model:{RESET} {WHITE}{current_model}{RESET}")
     
-    if quota_info:
-        used = quota_info.get("used", 0)
-        limit = quota_info.get("limit", 50)
-        remaining = quota_info.get("remaining", max(0, limit - used))
-        ratio_color = GREEN if remaining > 15 else (AMBER if remaining > 5 else CRIMSON)
-        status_parts.append(f"{ratio_color}Daily Quota: {remaining}/{limit} left ({used} used){RESET}")
-        if quota_info.get("is_free_tier"):
-            status_parts.append(f"{PURPLE}[Free Account]{RESET}")
+    if provider.lower() == "groq":
+        status_parts.append(f"{GREEN}⚡ Ultra-Fast LPU Hardware (~220+ tok/s){RESET}")
+        status_parts.append(f"{PURPLE}[LPU Tier]{RESET}")
     else:
-        status_parts.append(f"{AMBER}Free-Tier Mode{RESET}")
+        if quota_info and quota_info.get("provider") == "openrouter":
+            used = quota_info.get("used", 0)
+            limit = quota_info.get("limit", 50)
+            remaining = quota_info.get("remaining", max(0, limit - used))
+            ratio_color = GREEN if remaining > 15 else (AMBER if remaining > 5 else CRIMSON)
+            status_parts.append(f"{ratio_color}Daily Quota: {remaining}/{limit} left ({used} used){RESET}")
+            if quota_info.get("is_free_tier"):
+                status_parts.append(f"{PURPLE}[Free Account]{RESET}")
+        else:
+            status_parts.append(f"{AMBER}Free-Tier Mode (50/day){RESET}")
 
     bar = f"{DARK_GRAY}───┤ {RESET}" + f" {DARK_GRAY}|{RESET} ".join(status_parts) + f" {DARK_GRAY}├───{RESET}"
     print(bar)
