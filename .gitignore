@@ -44,3 +44,7 @@ arena_reports/
 *.swo
 .DS_Store
 Thumbs.db
+
+# Scratch files & local tests
+scratch*
+scratch_*

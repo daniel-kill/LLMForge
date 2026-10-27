@@ -4,11 +4,11 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llmforge"
-version = "1.0.0"
+version = "1.1.0"
 authors = [
   { name="Daniel Kill", email="daniel@danielkill.online" },
 ]
-description = "Terminal Foundry for OpenRouter Free-Tier LLMs — Interactive chat, model arena, and live quota inspector."
+description = "Dual-Provider Terminal Foundry for OpenRouter Free-Tier & Groq LPU Inference — Interactive chat, model arena, Prompt Guard, and live quota inspector."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT" }
